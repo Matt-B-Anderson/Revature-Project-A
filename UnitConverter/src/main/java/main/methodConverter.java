@@ -3,23 +3,45 @@ package main;
 import java.util.Scanner;
 
 public class methodConverter {
+	static int menuSelection;
+	static Scanner scanner = new Scanner(System.in);
+	static methodConverter cv = new methodConverter();
+
 	public static void main(String[] args) {
-		methodConverter cv = new methodConverter();
 
 		cv.menu();
+
 	}
 
-	public void menu() {
-		Scanner scanner = new Scanner(System.in);
+	public void menuOptions() {
+		scanner = new Scanner(System.in);
 		System.out.println("Please select an option: ");
 		System.out.println("1. Cups to Teaspoons ");
 		System.out.println("2. Miles to Kilometers ");
 		System.out.println("3. US Gallons to Imperial Gallons ");
 		System.out.println("4 Quit ");
 
-		int menuSelection;
-
 		menuSelection = scanner.nextInt();
+
+	}
+
+	public void reuseMenu() {
+		System.out.println("Would you like to use another converter or quit?");
+		System.out.println("Please type converter or quit");
+
+		scanner = new Scanner(System.in);
+
+		String userAnswer = scanner.nextLine();
+
+		if (userAnswer.equals("converter")) {
+			cv.menuOptions();
+		} else {
+			menuSelection = 4;
+		}
+	}
+
+	public void menu() {
+		cv.menuOptions();
 
 		if (menuSelection == 4) {
 			System.out.println("Thank you for your time!");
@@ -29,12 +51,13 @@ public class methodConverter {
 				String menuString;
 				switch (menuSelection) {
 				case 1: {
+
 					System.out.println("Please enter the number of cups");
 					int nmbCups;
 					nmbCups = scanner.nextInt();
 					System.out.println("That is " + nmbCups * 48 + " Teaspoons.");
+					cv.reuseMenu();
 
-					menuSelection = 4;
 				}
 					break;
 				case 2: {
@@ -42,8 +65,7 @@ public class methodConverter {
 					float nmbMiles;
 					nmbMiles = scanner.nextInt();
 					System.out.println("That is " + nmbMiles * 1.60934 + " Kilometers.");
-
-					menuSelection = 4;
+					cv.reuseMenu();
 				}
 					break;
 				case 3: {
@@ -51,8 +73,7 @@ public class methodConverter {
 					float nmbGallons;
 					nmbGallons = scanner.nextInt();
 					System.out.println("That is " + nmbGallons * 0.832674 + " Imperial Gallons.");
-
-					menuSelection = 4;
+					cv.reuseMenu();
 				}
 					break;
 				default: {
@@ -65,6 +86,7 @@ public class methodConverter {
 			}
 
 		}
+		scanner.close();
 	}
 
 }
